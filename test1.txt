@@ -1,0 +1,13 @@
+public class 一个文件中只能有一个公共类
+System.out.println() -- 带换行   System.out.print() --不带换行
+数组长度ArrayName.length
+数据复制 System.arraycopy(sourceArray, SourceStart, destArray, start, end)
+数组排序Arrays.sort(ArrayName)  --需要import java.util.*; 
+Java 允许二维数组中每行的元素个数均不相同, 取各行的长度即可ArrayName[i].length
+面向对象的语言叫方法，面向过程的语言叫函数
+方法的重载：允许在一个类中定义一个或多个同名的方法，只需要参数个数或者类型不同就可
+比较：== 或者equals()  “==”是比较内存地址值的，“equals”是比较内容的。
+this关键字：指向对象本身
+
+
+
