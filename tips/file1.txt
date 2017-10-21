@@ -60,5 +60,41 @@ Java 语言中含有方法重载与成员覆盖两种形式的多态。
 System.out.println(new classA.d);
 
 
+this()
+调用类中无参构造方法
+
+static
+静态变量
+静态函数
+
+静态代码块
+public class TestJAVA4_4
+{
+	static {System.out.println("static block TestJAVA4_4");}
+    public static void main(String[] args)  {	
+    	classA ca = new classA();
+    	classA cb = new classA();
+    	ca.fun1();
+    	cb.fun1();
+    } 
+}
+
+class classA
+{
+  public void fun1()
+  {
+	  System.out.println("classA");
+  }
+  
+  static {System.out.println("static block classA");}
+
+}
+执行结果：
+static block TestJAVA4_4
+static block classA
+classA
+classA
+
+
 
 
