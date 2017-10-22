@@ -95,6 +95,63 @@ static block classA
 classA
 classA
 
+javadoc 的输出
+示例 《java 基础教程》p201 
+javadoc -d PersonJavaDoc -version -author PersonJavaDoc.java
+ -d：表示生成目录，目录名称为 PersonJavaDoc
+ -version：表示要求 javadoc 程序在说明文件中加入版本信息。
+ -author：表示要求 javadoc 程序在说明文件中加入作者信息。
+ 
+ 继承
+ 访问修饰符共四种：public，default（就是不写），protected，private。
+ 不写，也就是default，也称package，是指同一个包内可以访问到这个类～其他三种倒和C++都一样。
+ default只能被包中的类访问。
+而protected则可以被不同包中的子类访问，这样来说，protected的可见范围还大一些。
 
+示例
+
+/* TestJAVA4_4.java */
+package test;
+ 
+public class TestJAVA4_4 extends classA
+{
+    public static void main(String[] args)  {
+    
+    	classA A1 = new classA();
+    	System.out.println(A1.a1);
+ 
+    	classA A2 = new classB();
+    	System.out.println(A2.a1);
+    	// not correct
+    	//System.out.println(A2.a3);
+    	
+    	// not correct
+    	// classB B1 = new classA(); 
+    	// System.out.println(B1.a1);
+    	
+    	classB B1 = new classB();
+    	System.out.println(B1.a1);
+    }
+}
+
+class classA
+{
+  int a1 =2;
+  int a2 = 3;
+
+}
+
+class classB extends classA
+{
+  int a1 =12;
+  int a2 = 13;
+  int a3 = 13;
+
+}
+
+
+
+ 
+ 
 
 
