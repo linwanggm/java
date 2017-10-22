@@ -1,3 +1,5 @@
+--以下内容为笔记整理内容，来自《java基础教程》，侵权删，请Email联系.
+
 @符号
 java 注解（Annotation）标识。
 注解，定义在java.lang包中。
@@ -247,8 +249,64 @@ final 关键字
 3、 final 标记的变量（成员变量或局部变量）即为常量，只能赋值一次。
 
 
+接口 interface
 
- 
- 
+接口（interface）是 Java 所提供的另一种重要技术，它的结构和抽象类非常相似，也具有数据成员与抽象方法，但它与抽象类又有以下两点不同：
+1、 接口里的数据成员必须初始化，且数据成员均为常量。
+2、 接口里的方法必须全部声明为 abstract，也就是说，接口不能像抽象类一样保有一般的方法，而必须全部是“抽象方法”。
+
+ 接口与一般类一样，本身也具有数据成员与方法，但数据成员一定要赋初值，且此值将不能再更改，方法也必须是“抽象方法”。也正因为方法必须是抽象方法，而
+没有一般的方法，所以抽象方法声明的关键字 abstract 是可以省略的.
+相同的情况也发生在数据成员身上，因数据成员必须赋初值，且此值不能再被更改，所以声明数据成员的关键字 final 也可省略。事实上只要记得：
+（1）、接口里的“抽象方法”只要做声明即可，而不用定义其处理的方式；
+（2）、数据成员必须赋初值，这样就可以了。
+在java中接口是用于实现多继承的一种机制，也是java设计中最重要的一个环节，每一个由接口实现的类必须在类内部复写接口中的抽象方法，且可自由地使用接口中的常量。
+
+接口的扩展（或继承）也是通过关键字 extends 来实现的。 一个接口可以继承多个接口，这点与类的继承有所不同。
+接口的实现用implements
+
+测试用例：
+public class TestJAVA4_4 implements infC
+{
+	public  void fun1()
+	{
+		System.out.println("haaa");
+	}
+    public static void main(String[] args)  {
+    
+    	TestJAVA4_4 tj4 = new TestJAVA4_4();
+    	tj4.fun1();
+
+    }
+}
+
+interface  infC
+{
+	//final can not need write
+  	final int a=1;
+  	
+  	//abstract can not need write
+  	public abstract void fun1();
+
+}
+
+对象多态性
+向上转型
+   父类对象通过子类对象去实例化，实际上就是对象的向上转型。向上转型是不需要进行强制类型转换的，但是向上转型会丢失精度。
+向下转型
+   与向上转型对应的一个概念就是“向下转型”，所谓向下转型，也就是说父类的对象可以转换为子类对象，但是需要注意的是，这时则必须要进行强制的类型转换。
+
+需要注意的是并非全部的父类对象都可以强制转换为子类对象。
+示例：
+Person p = new Person() ; 
+Student s = (Student)p ;  //有问题
+
+正确的是：
+Person p = new Student() ; 
+Student s = (Student)p ;  //没问题
 
 
+instanceof 关键字
+可以用 instanceof 判断一个类是否实现了某个接口，也可以用它来判断一个实例对象是否属于一个类。instanceof 的语法格式为：
+ 对象 instanceof 类(或接口)
+它的返回值是布尔型的，或真(true)、或假(false)。
