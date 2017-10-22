@@ -108,6 +108,8 @@ javadoc -d PersonJavaDoc -version -author PersonJavaDoc.java
  default只能被包中的类访问。
 而protected则可以被不同包中的子类访问，这样来说，protected的可见范围还大一些。
 
+在 java 中只允许单继承，而不允许多重继承，也就是说一个子类只能有一个父类，但是 java 中却允许多层继承
+
 示例
 
 /* TestJAVA4_4.java */
@@ -148,6 +150,86 @@ class classB extends classA
   int a3 = 13;
 
 }
+
+super
+调用父类的构造方法，方法，变量
+用 super 调用父类中的构造方法，只能放在程序的第一行。
+super 关键字不仅可以调用父类中的构造方法，也可以调用父类中的属性或方法，
+
+package test;
+ 
+public class TestJAVA4_4
+{
+    public static void main(String[] args)  {
+    
+    	classA A1 = new classA(1,2);
+    	System.out.println(A1.a1);
+ 
+    	classA A2 = new classB(11,12,13);
+    	System.out.println(A2.a1);
+    	
+    	classB B1 = new classB(11,12,13);
+    	System.out.println(B1.a1);
+    }
+    
+    
+}
+
+class classA
+{
+  int a1 =2;
+  int a2 = 3;
+  
+  public classA(int a1, int a2)
+  {
+	  this.a1 = a1;
+	  this.a2 = a2;
+  }
+  
+  public void print()
+  {
+	  System.out.println(a1 + " " +  a2);
+  }
+}
+
+class classB extends classA
+{
+  public classB(int a1, int a2, int a3)
+  {
+	  super(20,30);
+	  super.print();
+  }
+ 
+  int a1 =super.a1;
+  int a2 = 113;
+  int a3 = 113;
+
+}
+
+执行结果
+20 30
+20
+20 30
+112
+
+限制子类访问父类定义的方法，变量
+加private, 需要认识：
+只要父类中的属性被“private”声明的话，那么子类就再也无法访问到它了。实际上并不是这样的，在父类中加入了 private 关键字修饰，其目的只是相当于
+对子类隐藏了此属性，子类无法去显式的调用这些属性，但是却可以隐式地去调用（简单说就是间接访问）。
+总之，就是加了private 不能直接访问。
+
+复写
+就是c++中的覆盖， 子类对于父类来说嘚。
+
+重载
+就是方法名称相同，但是参数类型或者参数个数不同， 同对一个类中使用来说的。
+
+抽象类
+
+
+
+
+
 
 
 
