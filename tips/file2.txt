@@ -112,3 +112,119 @@ jar –cvf create.jar demo
 · create.jar：是生成 jar 文件的名称
 · demo：要打成 jar 文件的包
 
+多线程
+
+如果在类里要激活线程，必须先做好下面两个准备：
+（1）、线程必须扩展自 Thread 类，使自己成为它的子类。
+（2）、线程的处理必须编写在 run()方法内。
+
+1. 通过继承 Thread 类实现多线程 
+多线程的定义语法
+class 类名称 extends Thread // 从 Thread 类扩展出子类
+{
+ 属性
+ 方法…
+ 修饰符 run(){ // 复写 Thread 类里的 run()方法
+以线程处理的程序;
+ }
+} 
+
+举例：
+package test;
+ 
+public class TestJAVA4_4  
+{
+    public static void main(String[] args)  {
+    //调用 Thread 类中的 start()方法，实际上是调用 run()方法
+    	new  classA().start();
+    	
+    	for (int i=0; i<10; i++)
+  		  System.out.println("main " + i);
+    }
+}
+
+class classA extends Thread
+{
+  public void run()
+  {
+	  for (int i=0; i<10; i++)
+		  System.out.println("thread " + i);
+  }
+
+}
+
+执行结果
+thread 0
+main 0
+thread 1
+main 1
+thread 2
+main 2
+thread 3
+main 3
+thread 4
+main 4
+thread 5
+thread 6
+thread 7
+main 5
+thread 8
+main 6
+thread 9
+main 7
+main 8
+main 9
+
+2.通过实现 Runnable 接口实现多线程
+JAVA 程序只允许单一继承，即一个子类只能有一个父类，所以在 Java 中如果一个类继承了某一个类，同时又想采用多线程技术的时
+，就不能用 Thread 类产生线程，因为 Java 不允许多继承，这时就要用 Runnable接口来创建线程了。
+
+多线程定义语法
+class 类名称 implements Runnable // 实现 Runnable 接口
+{
+ 属性
+ 方法…
+ 修饰符 run(){ // 复写 Thread 类里的 run()方法
+以线程处理的程序;
+ }
+} 
+示例：
+package test;
+ 
+public class TestJAVA4_4  
+{
+ 
+    public static void main(String[] args)  {
+    //产生 Runnable 接口的子类实例化对象
+    	classA cA = new  classA();
+    //启动多线程
+   	new Thread(cA).start();
+  
+    	for (int i=0; i<10; i++)
+  		  System.out.println("main " + i);
+ 
+
+    }
+    
+    
+}
+
+class classA   implements Runnable 
+{
+  public void run()
+  {
+	  for (int i=0; i<10; i++)
+		  System.out.println("thread " + i);
+  }
+
+}
+
+为什么实现了 Runnable 接口还需要调用Thread 类中的 start()方法才能启动多线程呢？读者通过查找 JDK 文档就可以发现，在Runnable 
+接口中只有一个 run()方法。
+在 Runnable 接口中并没有 start()方法，所以一个类实现了Runnable 接口也必须用 Thread 类中的 start()方法来启动多线程。这点可以通过查找
+JDK 文档中的 Thread 类发现，在 Thread 类之中，有这样一个构造方法：public Thread(Runnable target) 由此构造方法可以发现，
+可以将一个 Runnable 接口的实例化对象作为参数去实例化 Thread 类对象。在实际的开发中，希望读者尽可能去使用 Runnable 接口去实现多线程机制。
+
+Thread 类实现了 Runnable 接口，也就是说 Thread 类也是Runnable 接口的一个子类。
+
+
