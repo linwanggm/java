@@ -1,0 +1,90 @@
+--以下内容为笔记整理内容，来自《java基础教程》，侵权删，请Email联系.
+
+异常处理
+
+try
+{
+要检查的程序语句 ； try 语句块
+ …
+}
+catch(异常类 对象名称)
+{ catch 语句块
+ 异常发生时的处理语句 ；
+}
+finally
+{ finally 语句块
+ 一定会运行到的程序代码 ；
+} 
+
+包 package
+当一个大型程序由数个不同的组别或人员开发共同开发时，用到相同的类名称是很有可能的事。如果这种情况发生，还要确保程序可以正确运行，就必须通过 package
+关键字来帮忙了。package 是在使用多个类或接口时，为了避免名称重复而采用的一种措施。那么具体应该怎么使用呢？在类或接口的最上面一行加上 package 的声明就可以了。
+简单说：package 就是一个为了避免类在不同文件夹下被重名而设计的一个处理措施，需要在各个java文件开始处写上package xx.yy.zz 一般默认xx，yy, zz均为文件夹名称
+
+示例：
+[wln@VM_176_143_centos 1022]$ cat TestJAVA4_4.java 
+package test;
+ 
+public class TestJAVA4_4 implements infC
+{
+        public  void fun1()
+        {
+                System.out.println("haaa");
+        }
+    public static void main(String[] args)  {
+    
+        TestJAVA4_4 tj4 = new TestJAVA4_4();
+        tj4.fun1();
+
+    }
+    
+    
+}
+
+interface  infC
+{
+        //final can not need write
+        final int a=1;
+  
+        //abstract can not need write
+        public abstract void fun1();
+
+}
+
+执行结果
+
+[wln@VM_176_143_centos 1022]$ javac -d ./ TestJAVA4_4.java   (命令格式)
+[wln@VM_176_143_centos 1022]$ 
+[wln@VM_176_143_centos 1022]$ ll
+total 16
+drwxrwxr-x 2 wln wln 4096 Oct 22 10:44 PersonJavaDoc
+-rw-rw-r-- 1 wln wln 1280 Oct 22 10:44 PersonJavaDoc.java
+-rw-rw-r-- 1 wln wln  382 Oct 22 16:30 TestJAVA4_4.java
+drwxrwxr-x 2 wln wln 4096 Oct 22 16:33 test  //（生成了新文件夹）
+[wln@VM_176_143_centos 1022]$ ll test
+total 8
+-rw-rw-r-- 1 wln wln 523 Oct 22 16:33 TestJAVA4_4.class
+-rw-rw-r-- 1 wln wln 167 Oct 22 16:33 infC.class
+[wln@VM_176_143_centos 1022]$ java test.TestJAVA4_4
+haaa
+
+import
+相当于linux c中的include 类似（extern 类似）
+
+JDK中常用的包
+
+SUN 公司在 JDK 中为程序开发者提供了各种实用类，这些类按功能不同分别被
+放入了不同的包中，供开发者使用，下面简要介绍其中最常用的几个包：
+1、 java.lang — 包含一些 Java 语言的核心类，如 String、Math、Integer、System
+    和 Thread，提供常用功能。在 java.lang 包中还有一个子包：java.lang.reflect用于实现 java 类的反射机制。
+2、 java.awt — 包含了构成抽象窗口工具集（abstract window toolkits）的多个类，这些类被用来构建和管理应用程序的图形用户界面(GUI)。
+3、 javax.swing — 此包用于建立图形用户界面，此包中的组件相对于 java.awt包而言是轻量级组件。
+4、 java.applet — 包含 applet 运行所需的一些类。
+5、 java.net — 包含执行与网络相关的操作的类。
+6、 java.io — 包含能提供多种输入/输出功能的类。
+7、 java.util — 包含一些实用工具类，如定义系统特性、与日期日历相关的函数。
+注意：java1.2 以后的版本中，java.lang 这个包会自动被导入，对于其中的类，不需要使用 import 语句来做导入了，如前面经常使用的 System 类。
+
+
+
+
