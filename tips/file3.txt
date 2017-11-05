@@ -96,5 +96,32 @@ Date 与 Calendar、DateFormat 类
 Date 类用于表示日期和时间，最简单的构造函数是 Date()，它以当前的日期和时间初始化一个 Date 对象。由于开始设计 Date 时没有考虑到国际化，所以后来又设计
 了两个新的类来解决 Date 类中的问题，一个是 Calendar 类，一个是 DateFormat 类。
 
+Random库类
+
+[wln@VM_176_143_centos java]$ cat randomDemo.java 
+import java.util.*;
+
+class randomDemo{
+        public static void main(String args[]){
+          Random r = new Random();
+                for (int i=0; i<5; i++)
+                        System.out.println(r.nextInt(100));
+
+
+        }
+}
+[wln@VM_176_143_centos java]$ java randomDemo 
+64
+20
+29
+46
+70
+[wln@VM_176_143_centos java]$ java randomDemo
+4
+59
+13
+40
+89
+
 
 
