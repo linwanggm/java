@@ -124,4 +124,93 @@ class randomDemo{
 89
 
 
+SOCKET 
+主要使用的方法及结构体有：
+ServerSocket()
+ServerSocket;
+ServerSocket.accept();
+PrintWriter;
+Socket;
+BufferedReader;
+BufferedReader.readLine();
+Socket.getOutputStream();
+Socket.getOutputStream;
+InputStreamReader();
+
+
+
+
+
+[wln@VM_176_143_centos java]$ cat HelloServer.java 
+/*
+* HelloServer.java
+*/
+import java.io.*;
+import java.net.*;
+
+public class  HelloServer{
+    public static void main(String args[])  throws IOException {
+
+                ServerSocket serversocket = null;
+                PrintWriter out = null;
+
+                try{
+                    serversocket = new ServerSocket(9999);
+                }
+                catch(IOException e){
+                System.out.println("Cannot listen on port:9999");
+                                System.exit(1);
+                }
+
+                Socket clientsocket = null;
+                try{
+                    clientsocket = serversocket.accept();
+                }
+                catch(IOException e){
+                    System.out.println("Accept failed.");
+                    System.exit(1);
+                }
+
+                out = new PrintWriter(clientsocket.getOutputStream(), true);
+                out.println("hello world");
+                clientsocket.close();
+                serversocket.close();
+
+                }
+}
+
+[wln@VM_176_143_centos java]$ cat HelloClient.java 
+/*
+* HelloClient.java
+*/
+import java.io.*;
+import java.net.*;
+
+public class  HelloClient{
+    public static void main(String args[]) throws IOException{
+
+                  Socket hellosocket = null;
+                  BufferedReader in = null;
+                  try{
+                       hellosocket = new Socket("localhost", 9999);
+                       in = new BufferedReader(new InputStreamReader(hellosocket.getInputStream()));
+                  }
+                        catch(UnknownHostException e)
+                        {
+                           System.out.println("Do not know the host:localhost");
+                                 System.exit(1);
+                        }
+                        catch(IOException e) 
+                        {
+                           System.err.println("Couldn't get I/O for the connection."); 
+                                 System.exit(1);
+                        }
+
+                        System.out.println(in.readLine());
+                        in.close();
+                        hellosocket.close();
+
+                }
+}
+
 
