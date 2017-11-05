@@ -214,3 +214,135 @@ public class  HelloClient{
 }
 
 
+多线程 SERVER CLINET
+
+[wln@VM_176_143_centos java]$ cat EchoServerThread.java
+/*
+* EchoServerThread.java 
+*/
+import java.io.*;
+import java.util.*;
+import java.net.*;
+
+public class EchoServerThread
+{
+  public static void main(String args[]) throws IOException
+        {
+          ServerSocket serverSocket = null;
+                boolean listening = true; 
+
+                try{
+                  serverSocket = new ServerSocket(1111); 
+                }
+                catch (IOException e)
+                {
+                   System.err.println("Could not listen on port: 1111."); 
+                         System.exit(1);
+                }
+
+          while(listening) 
+                {
+                  new EchoMultiServerThread(serverSocket.accept()).start(); 
+                }
+
+          serverSocket.close(); 
+        }
+
+
+}
+
+[wln@VM_176_143_centos java]$ cat EchoMultiServerThread.java
+import java.io.*;
+import java.net.*;
+
+public class  EchoMultiServerThread extends Thread {
+  private Socket socket = null;
+        public EchoMultiServerThread(Socket socket) 
+        {
+          super("EchoMultiServerThread");
+                this.socket = socket; 
+
+        }
+
+        public void run() 
+        {
+           try{
+                     PrintWriter out = null;
+                     BufferedReader in = null; 
+		    out = new PrintWriter(socket.getOutputStream(), true); 
+		    in = new BufferedReader(new InputStreamReader(socket.getInputStream())); 
+		     out.println("Hello! . . . "); 
+		     out.println("Enter BYE to exit"); 
+		     out.flush();
+		    while(true)
+		   {
+			 String str = in.readLine(); 
+			 if(str == null)
+				 break;
+			  else
+			  {
+															                                            out.println("Echo: "+str); 
+                           out.flush(); 
+																		                    if(str.trim().equalsIgnoreCase("BYE"))
+				 break;
+																		 
+		           }
+	      }
+		 out.close();
+		 in.close();
+		 socket.close(); 
+        }
+     catch(IOException e)
+     {
+       e.printStackTrace();              
+       }
+                 
+
+    }
+}
+
+
+[wln@VM_176_143_centos java]$ cat EchoClient.java 
+/*
+* EchoClient.java 
+*/
+import java.io.*;
+import java.net.*; 
+
+public class EchoClient 
+{
+  public static void main(String args[]) throws IOException
+        {
+          Socket echoSocket = null;
+                PrintWriter out = null; 
+                BufferedReader in = null; 
+                try
+                {
+                  echoSocket = new Socket ( "localhost", 1111); 
+                        out = new PrintWriter(echoSocket.getOutputStream(), true); 
+                        in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
+
+                }
+                catch (UnknownHostException e) 
+                {
+                  System.err.println("Don't know about host: localhost."); 
+                        System.exit(1);
+                }
+                System.out.println(in.readLine()); 
+                System.out.println(in.readLine()); 
+                BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in)); 
+                String userInput;
+
+                while ((userInput = stdIn.readLine()) != null) 
+                {
+                  out.println(userInput);
+      System.out.println(in.readLine());
+
+                }
+                out.close();
+                in.close();
+                echoSocket.close(); 
+        }
+
+
+}
