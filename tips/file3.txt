@@ -1,0 +1,100 @@
+--以下内容为笔记整理内容，来自《java基础教程》，侵权删，请Email联系.
+
+第12章 JAVA 常用库类
+
+类型转换
+[wln@VM_176_143_centos java]$ cat IntegerDemo.java 
+class IntegerDemo{
+        public static void main(String args[]){
+        String a = "123";
+        int b = Integer.parseInt(a);
+        b++;
+        System.out.println(b);
+
+        }
+}
+
+[wln@VM_176_143_centos java]$ java IntegerDemo
+124
+
+Java 不支持全局函数和变量，Java 设计者将一些系统相关的重要函数和变量收集到了一个统一的类中，这就是 System 类
+System 类中的所有成员都是静态的，而要引用这些变量和方法时，直接使用 System 类名作前缀，在前面已经使用到了标准输入和输出的 in 和 out 变量。
+
+获取当前机器环境变量
+getProperties 方法是获得当前虚拟机的环境属性
+
+[wln@VM_176_143_centos java]$ cat propertiesDemo.java 
+import java.util.*;
+
+class propertiesDemo{
+        public static void main(String args[]){
+          Properties per = System.getProperties();
+    Enumeration e = per.propertyNames();
+    while(e.hasMoreElements()){
+             String key = (String)e.nextElement();
+                         System.out.println(key + " = " + per.getProperty(key));
+        }
+
+        }
+}
+[wln@VM_176_143_centos java]$ java propertiesDemo 
+java.runtime.name =  OpenJDK Runtime Environment
+sun.boot.library.path =  /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.151-1.b12.el7_4.x86_64/jre/lib/amd64
+java.vm.version =  25.151-b12
+java.vm.vendor =  Oracle Corporation
+java.vendor.url =  http://java.oracle.com/
+path.separator =  :
+java.vm.name =  OpenJDK 64-Bit Server VM
+file.encoding.pkg =  sun.io
+user.country =  US
+sun.java.launcher =  SUN_STANDARD
+sun.os.patch.level =  unknown
+java.vm.specification.name =  Java Virtual Machine Specification
+user.dir =  /home/wln/wln/java
+java.runtime.version =  1.8.0_151-b12
+java.awt.graphicsenv =  sun.awt.X11GraphicsEnvironment
+java.endorsed.dirs =  /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.151-1.b12.el7_4.x86_64/jre/lib/endorsed
+os.arch =  amd64
+java.io.tmpdir =  /tmp
+line.separator =  
+
+java.vm.specification.vendor =  Oracle Corporation
+os.name =  Linux
+sun.jnu.encoding =  ANSI_X3.4-1968
+java.library.path =  /home/wln/software/adb22data31/install/lib:/home/wln/install_31/lib::/opt/software/scala/scala/lib:/usr/lib/:/lib:/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib
+java.specification.name =  Java Platform API Specification
+java.class.version =  52.0
+sun.management.compiler =  HotSpot 64-Bit Tiered Compilers
+os.version =  3.10.0-693.5.2.el7.x86_64
+user.home =  /home/wln
+user.timezone =  
+java.awt.printerjob =  sun.print.PSPrinterJob
+file.encoding =  ANSI_X3.4-1968
+java.specification.version =  1.8
+user.name =  wln
+java.class.path =  .
+java.vm.specification.version =  1.8
+sun.arch.data.model =  64
+java.home =  /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.151-1.b12.el7_4.x86_64/jre
+sun.java.command =  propertiesDemo
+java.specification.vendor =  Oracle Corporation
+user.language =  en
+awt.toolkit =  sun.awt.X11.XToolkit
+java.vm.info =  mixed mode
+java.version =  1.8.0_151
+java.ext.dirs =  /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.151-1.b12.el7_4.x86_64/jre/lib/ext:/usr/java/packages/lib/ext
+sun.boot.class.path =  /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.151-1.b12.el7_4.x86_64/jre/lib/resources.jar:/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.151-1.b12.el7_4.x86_64/jre/lib/rt.jar:/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.151-1.b12.el7_4.x86_64/jre/lib/sunrsasign.jar:/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.151-1.b12.el7_4.x86_64/jre/lib/jsse.jar:/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.151-1.b12.el7_4.x86_64/jre/lib/jce.jar:/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.151-1.b12.el7_4.x86_64/jre/lib/charsets.jar:/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.151-1.b12.el7_4.x86_64/jre/lib/jfr.jar:/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.151-1.b12.el7_4.x86_64/jre/classes
+java.vendor =  Oracle Corporation
+file.separator =  /
+java.vendor.url.bug =  http://bugreport.sun.com/bugreport/
+sun.cpu.endian =  little
+sun.io.unicode.encoding =  UnicodeLittle
+sun.cpu.isalist =  
+
+Date 与 Calendar、DateFormat 类
+
+Date 类用于表示日期和时间，最简单的构造函数是 Date()，它以当前的日期和时间初始化一个 Date 对象。由于开始设计 Date 时没有考虑到国际化，所以后来又设计
+了两个新的类来解决 Date 类中的问题，一个是 Calendar 类，一个是 DateFormat 类。
+
+
+
