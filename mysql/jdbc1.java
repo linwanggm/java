@@ -1,4 +1,7 @@
 下面代码code1在mysql 5.1 windows环境测试，插入的数据通过select 查看 各个列的值均为NULL，感觉这个地方prepareStatement 使用上有问题，待分析。
+:: 原因为String sql = "INSERT INTO  student(ID,age,name,FM) values(ID=?, age=?, name=?, FM=?)";  需要修改为
+   String sql = "INSERT INTO  student(ID,age,name,FM) values(?, ?, ?, ?)"; 
+
 而code2则没问题可以正常执行。
 
 
@@ -22,7 +25,7 @@ public class MySQLTest{
         String username = "testuser";  
         String password = "testuser123";  
           
-        String sql = "INSERT INTO  student(ID,age,name,FM) values(ID=?, age=?, name=?, FM=?)";  
+        String sql = "INSERT INTO  student(ID,age,name,FM) values(ID=?, age=?, name=?, FM=?)";  //need modify to : values(?,?,?,?)
         String querysql = "SELECT * FROM  student WHERE name LIKE 'a';";  
           
         try{  
@@ -36,8 +39,8 @@ public class MySQLTest{
         try{              
             Connection con = DriverManager.getConnection(url,username,password); //MySQL connect object        
             Statement stmt = con.createStatement();  
-            //PreparedStatement prest = con.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);  
-			PreparedStatement prest = con.prepareStatement(sql);  
+            PreparedStatement prest = con.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);  
+	    //PreparedStatement prest = con.prepareStatement(sql);  
             for(int i=0; i < ID.length; i++){  
                 prest.setString(1, ID[i]);  
                 prest.setInt(2, age[i]);  
